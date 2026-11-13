@@ -20,6 +20,11 @@ from services.steam_api import SteamApiError, SteamWebApiClient, validate_steam_
 
 
 def main() -> int:
+    # Windows legacy console encodings cannot print some Steam game titles (for
+    # example trademark symbols).  UTF-8 keeps a successful API probe from
+    # being reported as a false failure.
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="backslashreplace")
     load_dotenv(ROOT / ".env")
     api_key = os.getenv("STEAM_WEB_API_KEY", "")
     steam_id64 = os.getenv("STEAM_TEST_STEAM_ID64", "")
@@ -40,7 +45,7 @@ def main() -> int:
         return 1
 
     print("可行性验证成功：Steam 已返回可读取的库存响应。")
-    print(f"SteamID64：{result.steam_id64}")
+    print("SteamID64：已配置（为保护账号信息，不在输出中显示）")
     print(f"API game_count：{result.game_count}")
     print(f"实际 games 条目：{len(result.games)}")
     print("前 10 个游戏（仅显示 AppID 与名称）：")

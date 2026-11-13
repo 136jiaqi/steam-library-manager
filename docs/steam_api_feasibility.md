@@ -2,7 +2,7 @@
 
 ## 当前结论
 
-代码已具备对 Steam `IPlayerService/GetOwnedGames` 的真实、只读验证能力；尚未配置 API Key 和可测试 SteamID64 时，**不能宣称该项目组任一账号已经验证成功**。运行脚本后，以实际退出码和输出为准。
+代码已具备对 Steam `IPlayerService/GetOwnedGames` 的真实、只读验证能力。2026-11-13 已使用本地配置的一个账号完成验证：API 返回 `game_count=116`，且实际 `games` 条目为 116；响应含 AppID 与游戏名称。未在仓库、日志或本文档保存 API Key、SteamID64 或完整游戏清单。
 
 ## 运行
 
